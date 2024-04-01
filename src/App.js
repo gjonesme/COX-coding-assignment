@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectModal } from "./components/modalSlice";
+import "./App.css";
+import Calendar from "./components/Calendar";
+import Modal from "./components/Modal";
 
 function App() {
+  // const [testData, setTestData] = useState(null);
+  const [selectedTimes, setSelectedTimes] = useState([]); //move to store
+  const [targetApptTime, setTargetApptTime] = useState(""); //move to store
+
+  const showModal = useSelector(selectModal);
+
+  // useEffect(() => {
+  // console.log(selectedTimes);
+  //   fetch("/api")
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((data) => {
+  //       setTestData(data.message);
+  //     });
+  // }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Calendar
+      // setTargetApptTime={setTargetApptTime}
+      // selectedTimes={selectedTimes}
+      />
+      {showModal && (
+        <Modal
+        // targetApptTime={targetApptTime}
+        // selectedTimes={selectedTimes}
+        // setSelectedTimes={setSelectedTimes}
+        />
+      )}
     </div>
   );
 }
