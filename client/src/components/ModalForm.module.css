@@ -1,0 +1,16 @@
+.ModalForm {
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 50%;
+  border: 1px solid #000;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  z-index: 3;
+  background-color: #ccc;
+}
+
+.ModalButtonContainer {
+  display: flex;
+}
