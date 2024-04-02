@@ -32,43 +32,41 @@ class Appointment {
   }
 }
 
-console.log(apptData);
 //why should this be above app.listen?
 app.get("/api", (req, res) => {
   res.json({ message: "Hello from server!" });
 });
 
 app.get("/available", (req, res) => {
-  const targetAppointment = apptData.find((appointment) => {
-    return appointment.time == req.query.time;
-  });
-  targetAppointment
-    ? res.json(
-        apptData.find((appointment) => {
-          return appointment.time == req.query.time;
-        })
-      )
-    : res.json(new Appointment(req.query.time, "", ""));
+  if (req.query.time) {
+    const targetAppointment = apptData.find((appointment) => {
+      return appointment.time == req.query.time;
+    });
+    targetAppointment
+      ? res.json(
+          apptData.find((appointment) => {
+            return appointment.time == req.query.time;
+          })
+        )
+      : res.json(new Appointment(req.query.time, "", ""));
+  } else {
+    res.json(apptData);
+  }
 });
 
 app.post("/reserve", (req, res) => {
   const targetTime = apptData.findIndex((appointment) => {
     return appointment.time === req.body.time;
   });
-  console.log(targetTime);
-
   if (targetTime >= 0) {
     apptData[targetTime].setName(req.body.name);
     apptData[targetTime].setNumber(req.body.number);
   } else {
     apptData.push(
-      //not good... make copy
       new Appointment(req.body.time, req.body.name, req.body.number)
     );
   }
-  //   console.log(req.body);
-  console.log("POST REQUEST TO RESERVE");
-  console.log(apptData);
+  console.log(apptData); //can uncomment to see server updates
   res.status(201).send(apptData);
 });
 

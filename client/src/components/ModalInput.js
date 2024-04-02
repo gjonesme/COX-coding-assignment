@@ -8,11 +8,25 @@ const ModalInput = (props) => {
   const value = props.label === "Name" ? name : phone;
   const dispatch = useDispatch();
 
+  const phoneNumberAutoFormat = (phoneNumber) => {
+    const number = phoneNumber.trim().replace(/[^0-9]/g, "");
+
+    if (number.length < 4) return number;
+    if (number.length < 7) return number.replace(/(\d{3})(\d{1})/, "$1-$2");
+    if (number.length < 11)
+      return number.replace(/(\d{3})(\d{3})(\d{1})/, "$1-$2-$3");
+  };
+
   const onChangeHandler = (e) => {
     if (props.label === "Name") {
-      dispatch(setName(e.target.value));
+      if (
+        /^[a-zA-Z\s]*$/.test(e.target.value.charAt(e.target.value.length - 1))
+      ) {
+        dispatch(setName(e.target.value));
+      }
     } else {
-      dispatch(setPhone(e.target.value));
+      e.target.value.length < 13 &&
+        dispatch(setPhone(phoneNumberAutoFormat(e.target.value)));
     }
   };
 

@@ -1,8 +1,10 @@
-# Getting Started with Create React App
+# COX Coding Assignment
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Coding submission for Gary Jones
 
-## Available Scripts
+## Install Instructions for test
+
+Clone repo:
 
 In the project directory, you can run:
 

@@ -7,20 +7,11 @@ import {
   setPhone,
   setTime,
 } from "./appointmentSlice";
+import { formatTime } from "../helpers/helperFunctions";
 
 const HourBlock = (props) => {
   const dispatch = useDispatch();
   const scheduledTimes = useSelector(selectScheduledTimes);
-  const getAmPm = (time) => {
-    if (time >= 12) {
-      return "PM";
-    } else {
-      return "AM";
-    }
-  };
-  const convert24to12 = (time) => {
-    return time % 12 === 0 ? 12 : time % 12;
-  };
 
   const onClickHandler = (e) => {
     e.preventDefault();
@@ -43,11 +34,9 @@ const HourBlock = (props) => {
         scheduledTimes.includes(props.startTime) && classes.Reserved
       }`}
       onClick={onClickHandler}
-    >{`${convert24to12(props.startTime)} ${getAmPm(
-      props.startTime
-    )} - ${convert24to12(props.startTime + 1)} ${getAmPm(
-      props.startTime + 1
-    )}`}</button>
+    >
+      {formatTime(props.startTime)}
+    </button>
   );
 };
 
